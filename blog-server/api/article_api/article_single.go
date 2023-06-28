@@ -7,7 +7,7 @@ import (
 	"server/models/res"
 )
 
-// 查询单篇文章
+// 查询单篇文章详情
 
 func (ArticleApi) ArticleSingleView(c *gin.Context) {
 	id := c.Param("id")
