@@ -1,0 +1,24 @@
+package user_api
+
+import (
+	"github.com/gin-gonic/gin"
+	"server/global"
+	"server/models/res"
+	"server/service"
+	"server/utils/jwts"
+)
+
+func (UserApi) UserLogOutView(c *gin.Context) {
+	_claims, _ := c.Get("claims")
+	claims := _claims.(*jwts.CustomClaims)
+	// 拿到token
+	token := c.Request.Header.Get("token")
+
+	err := service.ServiceApp.UserService.Logout(claims, token)
+	if err != nil {
+		global.Log.Error(err)
+		res.FailWithMessage("注销失败", c)
+		return
+	}
+	res.OkWithMessage("注销成功", c)
+}
